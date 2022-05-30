@@ -1,19 +1,8 @@
-import {
-	Box,
-	BoxProps,
-	CloseButton,
-	Drawer,
-	DrawerContent,
-	Flex,
-	FlexProps,
-	Icon,
-	Link,
-	Text,
-	useColorModeValue,
-	useDisclosure,
-} from "@chakra-ui/react";
+import { Flex, FlexProps, Icon, Text, useDisclosure } from "@chakra-ui/react";
+import { NextPage } from "next";
 import NextLink from "next/link";
-import React, { ReactNode, ReactText } from "react";
+import { useRouter } from "next/router";
+import React, { ReactText } from "react";
 import { IconType } from "react-icons";
 import { FiAward, FiCalendar, FiHome, FiUser } from "react-icons/fi";
 
@@ -27,111 +16,90 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
 	{ name: "Home", icon: FiHome, link: "/" },
-	{ name: "My Profile", icon: FiUser, link: "/me" },
+	{ name: "My Profile ", icon: FiUser, link: "/me" },
 	{ name: "Events", icon: FiCalendar, link: "/events" },
 	{ name: "Training", icon: FiAward, link: "/training" },
 ];
 
-export const Sidebar = ({ children }: { children: ReactNode }) => {
+export const Sidebar: NextPage<SidebarProps> = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
-		<Box minH="100vh" minW="100%">
-			<SidebarContent
-				onClose={() => onClose}
-				display={{ base: "none", md: "block" }}
-			/>
-			<Drawer
-				autoFocus={false}
-				isOpen={isOpen}
-				placement="left"
-				onClose={onClose}
-				returnFocusOnClose={false}
-				onOverlayClick={onClose}
-				size="full"
-			>
-				<DrawerContent>
-					<SidebarContent onClose={onClose} />
-				</DrawerContent>
-			</Drawer>
-			{/* mobilenav */}
-			{/* <MobileNav onOpen={onOpen} /> */}
-			<Box ml={{ base: 0, md: 60 }} p="4">
+		<Flex minH="100vh">
+			<SidebarContent />
+			{/* <Box ml={{ base: 0, md: 60 }} p="4">
 				{children}
-			</Box>
-		</Box>
+			</Box> */}
+		</Flex>
 	);
 };
 
-interface SidebarProps extends BoxProps {
-	onClose: () => void;
-}
-
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = () => {
 	return (
-		<Box
-			transition="3s ease"
-			bg={useColorModeValue("white", "gray.900")}
+		<Flex
+			flexDir={"column"}
+			bg={"gray.900"}
 			borderRight="1px"
-			borderRightColor={useColorModeValue("gray.200", "gray.700")}
-			w={{ base: "full", md: 60 }}
+			borderRightColor={"gray.700"}
+			w={60}
 			pos="fixed"
 			h="full"
-			{...rest}
 		>
 			<Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
 				<Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
 					Logo
 				</Text>
-				<CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
 			</Flex>
-			{LinkItems.map((link) => (
-				<NextLink href={link.link}>
-					<NavItem key={link.name} icon={link.icon}>
-						{link.name}
-					</NavItem>
-				</NextLink>
-			))}
-		</Box>
+			{LinkItems.map((link) => {
+				console.log(link.name);
+				return (
+					<NextLink key={link.name} href={link.link}>
+						<a>
+							<NavItem key={link.name} icon={link.icon} link={link.link}>
+								{link.name}
+							</NavItem>
+						</a>
+					</NextLink>
+				);
+			})}
+		</Flex>
 	);
 };
 
 interface NavItemProps extends FlexProps {
 	icon: IconType;
+	link: string;
 	children: ReactText;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, link, children }: NavItemProps) => {
+	const router = useRouter();
+
 	return (
-		<Link
-			href="#"
-			style={{ textDecoration: "none" }}
-			_focus={{ boxShadow: "none" }}
+		<Flex
+			align="center"
+			p="4"
+			my={"1"}
+			mx="4"
+			borderRadius="lg"
+			// role={"group"}
+			cursor={"pointer"}
+			_hover={{
+				bg: "gray.700",
+				color: "white",
+			}}
+			bg={router.pathname === link ? "gray.700" : "transparent"}
 		>
-			<Flex
-				align="center"
-				p="4"
-				mx="4"
-				borderRadius="lg"
-				role="group"
-				cursor="pointer"
-				_hover={{
-					bg: "cyan.400",
-					color: "white",
-				}}
-				{...rest}
-			>
-				{icon && (
-					<Icon
-						mr="4"
-						fontSize="16"
-						_groupHover={{
-							color: "white",
-						}}
-						as={icon}
-					/>
-				)}
-				{children}
-			</Flex>
-		</Link>
+			{icon && (
+				<Icon
+					mr="4"
+					fontSize="16"
+					_groupHover={{
+						color: "white",
+					}}
+					as={icon}
+				/>
+			)}
+			{children}
+		</Flex>
 	);
 };
 
@@ -220,4 +188,4 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 // 			</HStack>
 // 		</Flex>
 // 	);
-// };
+// };,
