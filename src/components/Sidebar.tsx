@@ -1,4 +1,11 @@
-import { Flex, FlexProps, Icon, Text, useDisclosure } from "@chakra-ui/react";
+import {
+	Flex,
+	FlexProps,
+	Icon,
+	Text,
+	useColorModeValue,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { NextPage } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -37,9 +44,9 @@ const SidebarContent = () => {
 	return (
 		<Flex
 			flexDir={"column"}
-			bg={"gray.900"}
+			bg={useColorModeValue("gray.200", "gray.900")}
 			borderRight="1px"
-			borderRightColor={"gray.700"}
+			borderRightColor={useColorModeValue("gray.300", "gray.700")}
 			w={60}
 			pos="fixed"
 			h="full"
@@ -71,30 +78,40 @@ interface NavItemProps extends FlexProps {
 	children: ReactText;
 }
 const NavItem = ({ icon, link, children }: NavItemProps) => {
+	const color = useColorModeValue("gray.700", "gray.300");
 	const router = useRouter();
 
 	return (
 		<Flex
+			transition={".12s ease"}
 			align="center"
 			p="4"
 			my={"1"}
 			mx="4"
 			borderRadius="lg"
-			// role={"group"}
+			role={"group"}
 			cursor={"pointer"}
+			color={
+				router.pathname === link ? useColorModeValue("black", "white") : color
+			}
 			_hover={{
-				bg: "gray.700",
-				color: "white",
+				bg: useColorModeValue("gray.300", "gray.700"),
+				// color: useColorModeValue("black", "gray.200"),
 			}}
-			bg={router.pathname === link ? "gray.700" : "transparent"}
+			bg={
+				router.pathname === link
+					? useColorModeValue("gray.300", "gray.700")
+					: "transparent"
+			}
+			fontWeight={"semibold"}
 		>
 			{icon && (
 				<Icon
 					mr="4"
 					fontSize="16"
-					_groupHover={{
-						color: "white",
-					}}
+					// _groupHover={{
+					// 	color: color,
+					// }}
 					as={icon}
 				/>
 			)}
