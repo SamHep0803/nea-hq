@@ -1,6 +1,6 @@
+import { Sidebar } from "@components/Sidebar";
 import { NextPage } from "next";
 import React from "react";
-import { Sidebar } from "../components/Sidebar";
 
 const Me: NextPage = () => {
 	return <Sidebar />;

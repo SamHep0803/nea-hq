@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { Header } from "@components/Header";
 import { Sidebar } from "@components/Sidebar";
 
 const Index = () => {
@@ -8,10 +9,11 @@ const Index = () => {
 	}
 	return (
 		<Flex height="100vh" width="100%">
-			<Flex>
-				<Sidebar />
-			</Flex>
-			<Box m={60}>{tests}</Box>
+			<Sidebar />
+			<Header />
+			<Box ml={"64"} mt={"20"}>
+				{tests}
+			</Box>
 		</Flex>
 	);
 };
