@@ -5,6 +5,7 @@ declare global {
       VATSIM_CLIENT_SECRET: string;
       VATSIM_URL: string;
       VATSIM_SCOPES: string;
+      VATSIM_CALLBACK_URL: string;
       SESSION_SECRET: string;
     }
   }

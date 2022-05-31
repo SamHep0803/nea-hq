@@ -1,0 +1,21 @@
+name: CTL Staging site CI
+on:
+  push:
+    branches: [staging]
+jobs:
+  epsilon-push:
+    name: Push staging changes to Epsilon
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh into epsilon and update staging
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{secrets.PASSWORD}}
+          script: |
+            PATH=$PATH:/$HOME/.yarn/bin
+            cd nea-hq/
+            git pull
+            yarn
+            pm2 restart "next"
