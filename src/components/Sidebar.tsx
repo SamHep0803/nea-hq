@@ -125,7 +125,6 @@ export const SidebarContent = ({
 								key={link.name}
 								icon={link.icon}
 								link={link.link}
-								onClick={onClose}
 							>
 								{link.name}
 							</NavItem>
@@ -141,12 +140,7 @@ export const SidebarContent = ({
 				return (
 					<NextLink key={link.name} href={link.link}>
 						<a>
-							<NavItem
-								key={link.name}
-								icon={link.icon}
-								link={link.link}
-								onClick={onClose}
-							>
+							<NavItem key={link.name} icon={link.icon} link={link.link}>
 								{link.name}
 							</NavItem>
 						</a>
@@ -185,7 +179,6 @@ const DropdownItem = ({ icon, links, children }: DropdownItemProps) => {
 				fontWeight={"semibold"}
 				onClick={onToggle}
 				justifyContent="space-between"
-				color={color}
 			>
 				<Flex>
 					{icon && <Icon mr="4" fontSize="16" as={icon} alignSelf={"center"} />}
