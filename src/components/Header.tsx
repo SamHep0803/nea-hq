@@ -5,6 +5,7 @@ import {
 	Flex,
 	HStack,
 	IconButton,
+	Img,
 	Menu,
 	MenuButton,
 	MenuDivider,
@@ -43,14 +44,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 				aria-label="open menu"
 				icon={<FiMenu />}
 			/>
-			<Text
-				display={{ base: "flex", md: "none" }}
-				fontSize="2xl"
-				fontFamily="monospace"
-				fontWeight="bold"
-			>
-				Logo
-			</Text>
+
+			<Img
+				src={useColorModeValue("/logo-black.png", "/logo-white.png")}
+				alt="logo"
+				display={{ base: "block", md: "none" }}
+				boxSize={14}
+			/>
 			<HStack spacing={{ base: "0", md: "4" }}>
 				<IconButton
 					icon={isDark ? <SunIcon /> : <MoonIcon />}
