@@ -1,8 +1,8 @@
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
 	Avatar,
 	Box,
 	Flex,
-	FlexProps,
 	HStack,
 	IconButton,
 	Menu,
@@ -11,18 +11,21 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
+	useColorMode,
 	useColorModeValue,
 	VStack,
 } from "@chakra-ui/react";
 import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
 
-interface HeaderProps extends FlexProps {
-	// onOpen: () => void;
+interface HeaderProps {
+	onOpen: () => void;
 }
-export const Header = ({}: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
+	const { colorMode, toggleColorMode } = useColorMode();
+	const isDark = colorMode === "dark";
+
 	return (
 		<Flex
-			ml={{ base: 0, md: 64 }}
 			px={{ base: 4, md: 4 }}
 			height="20"
 			alignItems="center"
@@ -30,12 +33,12 @@ export const Header = ({}: HeaderProps) => {
 			borderBottomWidth="1px"
 			borderBottomColor={useColorModeValue("gray.200", "gray.700")}
 			justifyContent={{ base: "space-between", md: "flex-end" }}
-			w={"85%"}
+			w={"100%"}
 			pos="fixed"
 		>
 			<IconButton
 				display={{ base: "flex", md: "none" }}
-				// onClick={onOpen}
+				onClick={onOpen}
 				variant="outline"
 				aria-label="open menu"
 				icon={<FiMenu />}
@@ -48,7 +51,12 @@ export const Header = ({}: HeaderProps) => {
 			>
 				Logo
 			</Text>
-			<HStack spacing={{ base: "0", md: "6" }}>
+			<HStack spacing={{ base: "0", md: "4" }}>
+				<IconButton
+					icon={isDark ? <SunIcon /> : <MoonIcon />}
+					aria-label="Toggle Theme"
+					onClick={toggleColorMode}
+				/>
 				<IconButton
 					size="lg"
 					variant="ghost"

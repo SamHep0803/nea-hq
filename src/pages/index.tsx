@@ -1,21 +1,12 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { Header } from "@components/Header";
-import { Sidebar } from "@components/Sidebar";
+import { NextPage } from "next";
 
-const Index = () => {
+const Index: NextPage = () => {
 	const tests = [];
 	for (let i = 0; i < 50; i++) {
 		tests.push(<div>Test</div>);
 	}
-	return (
-		<Flex height="100vh" width="100%">
-			<Sidebar />
-			<Header />
-			<Box ml={"64"} mt={"20"}>
-				{tests}
-			</Box>
-		</Flex>
-	);
+
+	return <div>{tests}</div>;
 };
 
 export default Index;
