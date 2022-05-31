@@ -18,6 +18,8 @@ import {
 	useColorModeValue,
 	VStack,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
 
 interface HeaderProps {
@@ -26,12 +28,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 	const user = useUser();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const bg = useColorModeValue("white", "gray.900");
+	const borderColor = useColorModeValue("gray.200", "gray.700");
+	const router = useRouter();
 	const isDark = colorMode === "dark";
 
 	let body;
 
 	if (user) {
-		console.log(user);
 		body = (
 			<Flex alignItems={"center"}>
 				<Menu>
@@ -48,8 +52,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 								spacing="1px"
 								ml="2"
 							>
-								<Text fontSize="sm">{user.personal!.name_full}</Text>
-								<Text fontSize="xs" color="gray.600">
+								<Text fontSize="sm" fontWeight={"semibold"}>
+									{user.personal!.name_full}
+								</Text>
+								<Text fontSize="xs" color="gray.500">
 									{user.cid}
 								</Text>
 							</VStack>
@@ -58,21 +64,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 							</Box>
 						</HStack>
 					</MenuButton>
-					<MenuList
-						bg={useColorModeValue("white", "gray.900")}
-						borderColor={useColorModeValue("gray.200", "gray.700")}
-					>
+					<MenuList bg={bg} borderColor={borderColor}>
 						<MenuItem>Profile</MenuItem>
 						<MenuItem>Settings</MenuItem>
-						<MenuItem>Billing</MenuItem>
 						<MenuDivider />
-						<MenuItem>Sign out</MenuItem>
+						<NextLink href="/api/logout">
+							<MenuItem>Sign out</MenuItem>
+						</NextLink>
 					</MenuList>
 				</Menu>
 			</Flex>
 		);
 	} else if (user === undefined) {
 		body = <Spinner />;
+	} else if (user === null) {
+		router.push("/login");
 	}
 
 	return (
@@ -80,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 			px={{ base: 4, md: 4 }}
 			height="20"
 			alignItems="center"
-			bg={useColorModeValue("white", "gray.900")}
+			bg={useColorModeValue("gray.100", "gray.900")}
 			borderBottomWidth="1px"
 			borderBottomColor={useColorModeValue("gray.200", "gray.700")}
 			justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -101,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 				display={{ base: "block", md: "none" }}
 				boxSize={14}
 			/>
-			<HStack spacing={{ base: "0", md: "2" }}>
+			<HStack spacing={2}>
 				<IconButton
 					icon={isDark ? <SunIcon /> : <MoonIcon />}
 					aria-label="Toggle Theme"

@@ -17,7 +17,7 @@ const Login = () => {
 		<Container maxW={"7xl"} h={"100%"}>
 			<Flex flexDir={"column"} align={"center"}>
 				<Img src="/white.png" alt="logo" boxSize={80} />
-				<Heading mt={10} fontSize={"6xl"}>
+				<Heading mt={{ base: 4, md: 10 }} fontSize={{ base: "4xl", md: "6xl" }}>
 					Control Center Login
 				</Heading>
 				<NextLink href="/api/auth/callback">

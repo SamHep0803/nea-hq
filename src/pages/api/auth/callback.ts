@@ -22,7 +22,6 @@ export default nextConnect().get(
 	async (req: NextApiRequest, res: NextApiResponse, next: any) => {
 		try {
 			const token = await authenticate("oauth2", req, res);
-			console.log(token);
 			await setUserSession(res, token);
 			res.writeHead(301, { Location: "/" });
 			res.end();
