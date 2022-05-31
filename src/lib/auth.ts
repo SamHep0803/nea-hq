@@ -17,7 +17,7 @@ passport.use(
 			scope: process.env.VATSIM_SCOPES,
 			clientID: process.env.VATSIM_CLIENT_ID,
 			clientSecret: process.env.VATSIM_CLIENT_SECRET,
-			callbackURL: "http://localhost:3000/api/auth/callback",
+			callbackURL: process.env.VATSIM_CALLBACK_URL,
 		},
 		(
 			accessToken: string,
