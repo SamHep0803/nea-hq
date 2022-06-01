@@ -77,8 +77,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpen }) => {
 		);
 	} else if (user === undefined) {
 		body = <Spinner />;
-	} else if (user === null) {
-		router.push("/login");
 	}
 
 	return (
