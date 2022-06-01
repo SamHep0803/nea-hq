@@ -35,8 +35,10 @@ const theme = extendTheme({
 	},
 	fonts,
 	breakpoints,
-	initialColorMode: "dark",
-	useSystemColorMode: false,
+	config: {
+		initialColorMode: "dark",
+		useSystemColorMode: false,
+	},
 });
 
 export default theme;
