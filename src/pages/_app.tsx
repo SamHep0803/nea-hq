@@ -1,9 +1,8 @@
-import { useUser } from "@/lib/user";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import theme from "@/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { ReactElement, ReactNode } from "react";
 import { Layout } from "../layouts/Layout";
 
@@ -16,23 +15,18 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const defaultLayout = (page: ReactElement) => {
-	const router = useRouter();
-	const user = useUser();
-
-	if (user === null) {
-		router.push("/login");
-		console.log(user || "no user");
-	}
 	return (
 		<ChakraProvider resetCSS theme={theme}>
-			<style>
-				{`
+			<ProtectedRoute exceptions={["/login"]}>
+				<style>
+					{`
         body {
           overscroll-behavior-y: none;
         }
         `}
-			</style>
-			<Layout>{page}</Layout>
+				</style>
+				<Layout>{page}</Layout>
+			</ProtectedRoute>
 		</ChakraProvider>
 	);
 };
