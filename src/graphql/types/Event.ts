@@ -1,6 +1,15 @@
 import { User } from "@/graphql/types/User";
 import { ObjectType, Field } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+	BaseEntity,
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from "typeorm";
 
 @ObjectType()
 @Entity()
@@ -22,13 +31,14 @@ export class Event extends BaseEntity {
 	bannerUrl: string;
 
 	@Field(() => String)
-	@Column()
+	@CreateDateColumn()
 	createdAt: Date;
 
 	@Field(() => String)
-	@Column()
+	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Column()
+	@Field(() => [User], { nullable: true })
+	@ManyToMany(() => User, (user) => user.bookings)
 	bookings: User[];
 }
