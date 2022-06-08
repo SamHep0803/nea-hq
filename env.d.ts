@@ -7,6 +7,7 @@ declare global {
       VATSIM_SCOPES: string;
       VATSIM_CALLBACK_URL: string;
       SESSION_SECRET: string;
+      DATABASE_URL: string;
     }
   }
 }
