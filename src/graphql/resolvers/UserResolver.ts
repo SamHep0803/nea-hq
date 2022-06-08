@@ -38,16 +38,17 @@ export class UserResolver {
 
 	@Mutation(() => User)
 	async bookUser(
-		@Arg("id") id: string,
+		@Arg("userId") userId: string,
 		@Arg("eventId") eventId: string
 	): Promise<User | null> {
-		const user = await User.findOne({ where: { id } });
+		const user = await User.findOne({ where: { id: userId } });
 		if (!user) return null;
 
-		const event = await Event.findOne({ where: { id: eventId } });
+		const event = await Event.findOne({
+			where: { id: eventId },
+			relations: { bookings: true },
+		});
 		if (!event) return null;
-
-		if (!user.bookings) user.bookings = [];
 
 		user.bookings.push(event);
 		console.log(user);

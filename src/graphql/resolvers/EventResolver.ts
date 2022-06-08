@@ -1,6 +1,4 @@
 import { Event } from "@/graphql/types/Event";
-import { User } from "@/graphql/types/User";
-import { StringValueNode } from "graphql";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()
@@ -43,16 +41,10 @@ export class EventResolver {
 		@Arg("id") id: string,
 		@Arg("name") name: string,
 		@Arg("description") description: string,
-		@Arg("bannerUrl") bannerUrl: string,
-		@Arg("bookings", () => [String]) bookings: string[]
+		@Arg("bannerUrl") bannerUrl: string
 	): Promise<Event | null> {
 		const event = await Event.findOne({ where: { id } });
 		if (!event) return null;
-		bookings.forEach(async (userId) => {
-			const user = await User.findOne({ where: { id: userId } });
-			if (!user) return null;
-			event.bookings.push(user);
-		});
 		if (name) event.name = name;
 		if (description) event.description = description;
 		if (bannerUrl) event.bannerUrl = bannerUrl;

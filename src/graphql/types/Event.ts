@@ -38,7 +38,7 @@ export class Event extends BaseEntity {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Field(() => [User], { nullable: true })
+	@Field(() => [User])
 	@ManyToMany(() => User, (user) => user.bookings)
 	bookings: User[];
 }
