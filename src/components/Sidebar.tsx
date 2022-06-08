@@ -88,7 +88,7 @@ export const SidebarContent = ({
 			bg={useColorModeValue("gray.100", "gray.900")}
 			borderRight="1px"
 			borderRightColor={useColorModeValue("gray.200", "gray.700")}
-			w={{ base: "full", md: 64 }}
+			w={{ base: "full", md: "256px" }}
 			pos="fixed"
 			h="full"
 			zIndex={{ base: 10, md: 10 }}
@@ -97,7 +97,7 @@ export const SidebarContent = ({
 			<Flex
 				h="20"
 				alignItems="center"
-				mt={4}
+				my={4}
 				mx="8"
 				justifyContent="space-between"
 			>

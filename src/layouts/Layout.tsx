@@ -13,9 +13,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 	return (
 		<Flex height="100vh" width="100%">
 			<Sidebar isOpen={isOpen} onClose={onClose} />
-			<Box>
-				<Header onOpen={onOpen} />
-				<Box ml={{ base: "0", md: "64" }} mt={"20"} p={6}>
+			<Header onOpen={onOpen} />
+			<Box ml={{ base: "0", md: "256px" }} w={"100%"}>
+				<Box mt={"20"} p={6} w={"100%"} h={"100%"}>
 					{children}
 				</Box>
 			</Box>
