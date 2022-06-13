@@ -4,8 +4,8 @@ export interface ApiResponse {
 
 export interface UserProfile {
 	cid: number;
-	personal?: Personal;
-	vatsim?: Vatsim;
+	personal: Personal;
+	vatsim: Vatsim;
 	oauth: OAuth;
 }
 

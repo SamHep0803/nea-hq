@@ -1,7 +1,15 @@
+import { RatingBadge } from "@/components/RatingBadge";
+import { useUser } from "@/lib/user";
 import { Flex, Heading } from "@chakra-ui/react";
 import { NextPage } from "next";
 
 const Index: NextPage = () => {
+	const user = useUser();
+
+	if (user === null) {
+		return null;
+	}
+
 	return (
 		<Flex w={"100%"} flexDir={"column"} h={"100%"}>
 			<Flex
@@ -18,10 +26,14 @@ const Index: NextPage = () => {
 					h={"100%"}
 					justifyContent={"center"}
 					alignItems={"center"}
-					background={"rgba(0,0,0,0.62)"}
+					background={"rgba(0,0,0,0.65)"}
 				>
 					<Heading fontSize={{ base: "2xl", sm: "3xl" }}>
-						North-East Africa vACC
+						<Heading as="span" textColor={"gray.200"} fontSize={"3xl"}>
+							Welcome,{" "}
+						</Heading>
+						{user.personal.name_full} -{" "}
+						<RatingBadge rating={user.vatsim.rating.id} fontSize={"xl"} />
 					</Heading>
 				</Flex>
 			</Flex>

@@ -172,7 +172,8 @@ const DropdownItem = ({ icon, links, children }: DropdownItemProps) => {
 			<Flex
 				transition={".12s ease"}
 				align="center"
-				p="4"
+				px="4"
+				py={"2"}
 				my={"1"}
 				mx="4"
 				borderRadius="lg"
@@ -218,7 +219,8 @@ const NavItem = ({ icon, link, children, ...rest }: NavItemProps) => {
 			<Flex
 				transition={".12s ease"}
 				align="center"
-				p="4"
+				px="4"
+				py={"2"}
 				my={"1"}
 				mx="4"
 				borderRadius="lg"
