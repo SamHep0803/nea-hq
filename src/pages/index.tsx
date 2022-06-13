@@ -1,3 +1,4 @@
+import { DepArrInfo } from "@/components/DepArrInfo";
 import { useUser } from "@/lib/user";
 import { NextPage } from "next";
 
@@ -8,7 +9,7 @@ const Index: NextPage = () => {
 		return null;
 	}
 
-	return <div> fuck u</div>;
+	return <DepArrInfo />;
 };
 
 export default Index;
