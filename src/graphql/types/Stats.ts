@@ -1,13 +1,14 @@
+import { Controller, Pilot } from "@/interfaces/DataFeed";
 import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class Stats {
-	@Field(() => Int)
-	onlineAtc: number;
+	@Field(() => [Controller])
+	onlineAtc: Controller[];
 
-	@Field(() => Int)
-	departures: number;
+	@Field(() => [Pilot])
+	departures: Pilot[];
 
-	@Field(() => Int)
-	arrivals: number;
+	@Field(() => [Pilot])
+	arrivals: Pilot[];
 }

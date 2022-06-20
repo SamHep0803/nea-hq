@@ -10,6 +10,7 @@ import Cors from "micro-cors";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "@/graphql/resolvers/UserResolver";
 import { EventResolver } from "@/graphql/resolvers/EventResolver";
+import { StatsResolver } from "@/graphql/resolvers/StatsResolver";
 
 const cors = Cors();
 
@@ -19,7 +20,7 @@ const getApolloServerHandler = async (): Promise<RequestHandler> => {
 	const apolloServer = new ApolloServer({
 		plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
 		schema: await buildSchema({
-			resolvers: [HelloResolver, UserResolver, EventResolver],
+			resolvers: [HelloResolver, UserResolver, EventResolver, StatsResolver],
 		}),
 		context: async ({ req }: { req: MicroRequest }) => {
 			return createContext(req);
